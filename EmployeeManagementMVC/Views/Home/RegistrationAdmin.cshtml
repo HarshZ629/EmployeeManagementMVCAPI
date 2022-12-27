@@ -1,0 +1,269 @@
+﻿
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <title>Admin Sign Up</title>
+    <link rel="stylesheet" href="signIn.css">
+    <style>
+        #amazon {
+            width: 315px;
+            height: 33px;
+            font-size: 14px;
+            background: linear-gradient(#F7DEA1, #F0C14D);
+            border: 0.5px solid #aaaaaa;
+            border-radius: 3px;
+            margin-top: 10px;
+        }
+
+            #amazon:hover {
+                background: linear-gradient(#F5D68A, #EEBA36);
+            }
+
+
+
+        body {
+            font-size: 13px;
+            line-height: 19px;
+            color: #111;
+            font-family: Arial,sans-serif;
+        }
+
+        img {
+            margin: auto;
+            display: block;
+        }
+
+        #signInBorder {
+            position: static;
+            margin: 0 auto;
+            border-color: #DDDDDD;
+            border: 0.5px solid #DDDDDD;
+            border-radius: 3px;
+            width: 340px;
+            padding-left: 25px;
+        }
+
+        input {
+            border-left-color: #DDDDDD;
+            border-right-color: #DDDDDD;
+            border-radius: 3px;
+            border-width: 0.2px;
+            height: 25px;
+            width: 315px;
+            margin-bottom: 15px;
+        }
+
+            input:focus {
+                -webkit-box-shadow: 0px 0px 1.5px 1.5px rgba(231,118,0,0.9);
+                -moz-box-shadow: 0px 0px 1.5px 1.5px rgba(231,118,0,0.9);
+                box-shadow: 0px 0px 1.5px 1.5px rgba(231,118,0,0.9);
+                outline: 0;
+            }
+
+
+        #SignInTxt {
+            font-family: Arial, sans-serif;
+            font-size: 26.5px;
+        }
+
+        h2 {
+            color: rgb(134, 134, 134);
+            font-weight: normal;
+            letter-spacing: 1px;
+            font-size: 11.5px;
+            width: 315px;
+            text-align: center;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+            line-height: 0.1em;
+            margin: 10px 0 20px;
+            margin-bottom: 5px;
+        }
+
+            h2 span {
+                background: #fff;
+                padding: 0 10px;
+            }
+
+        #createAccount {
+            margin-top: 30px;
+        }
+
+        #newAccount {
+            background: linear-gradient(#f6f7f9, #e7e9ec);
+            margin-top: 10px;
+            margin-bottom: 20px;
+            width: 315px;
+            height: 33px;
+            font-size: 14px;
+            border: 0.5px solid #aaaaaa;
+            border-radius: 3px;
+        }
+
+            #newAccount:hover {
+                background: linear-gradient(#f5f6f8, #d9dce1);
+            }
+
+        #footer {
+            border: 0;
+            height: 0;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+            margin-top: 30px;
+        }
+
+
+
+        a:link {
+            font-size: 12px;
+            /*margin: 0 10px 0px 10px;*/
+            margin-right: 10px;
+            text-decoration: none;
+            color: #0066c0
+        }
+
+        a:hover {
+            text-decoration: underline;
+            color: orangergb(230, 161, 28);
+        }
+
+        a:visited {
+            color: #0066c0;
+        }
+
+        .links {
+            font-size: 10px;
+            text-align: center;
+            padding-left: 15px;
+        }
+
+        #password {
+            margin-left: 125px;
+        }
+
+        #special {
+            font-size: 11px;
+        }
+
+    </style>
+    <script type="text/javascript">
+        function addCustomer() {
+            debugger
+            validate();
+            ValidateEmail();
+            debugger
+            var customers = {
+                AdminName: $('#txtName').val(),
+                AdminEmail: $('#txtEmail').val(),
+                AdminPassword: $('#txtPassword').val(),
+            };
+            $.ajax({
+                url: 'http://localhost:53338/api/Login/Post',
+                type: 'POST',
+                data: customers,
+                success: function (res) {
+                    if (res != null) {
+                        alert('User Added');
+                        GetAllData();
+                    }
+                },
+                error: function (err) {
+                    console.log(err);
+                }
+            });
+            location.reload();
+            if (customers != null) {
+                alert('Use Added');
+            }
+        }
+
+        function ValidateEmail() {
+            var email = document.getElementById("txtEmail").value;
+            var lblError = document.getElementById("lblError");
+            lblError.innerHTML = "";
+            var expr = /^([\w-\.]+)@@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+            if (!expr.test(email)) {
+                lblError.innerHTML = "Invalid email address.";
+            }
+        }
+
+        function validate() {
+            var isValid = true;
+            if (document.AdminEmail == "") {
+                debugger
+                document.getElementById('txtEmail').innerHTML = "*This field is required";
+                document.getElementById('txtEmail').style.color = "red";
+                isValid = false;
+            }
+            
+            return isValid;
+
+        }
+      
+
+    </script>
+</head>
+<body>
+    <img src="Amazon Logo.png" alt="Amazon.com" />
+
+    <div id="signInBorder" style="width:350px;">
+        <p id="SignInTxt">
+            Admin Sign Up
+        </p>
+
+        <label>
+            <strong>Name</strong>
+            <br>
+            <input type="text" id="txtName" name="email" value="">
+        </label>
+        <br>
+        <label>
+            <strong>Email (phone for mobile accounts)</strong>
+            <br>
+            <input type="email" id="txtEmail" name="email" value="">
+            <span id="lblError" style="color:red"></span>
+        </label>
+
+
+        <br>
+
+        <label>
+            <strong>Password</strong>
+            <span><a href="#" id="password">Forgot your password?</a></span>
+            <br>
+            <input type="password" id="txtPassword" name="password" value="">
+        </label>
+
+        <div>
+            <button onclick="addCustomer()" id="amazon">Create</button>
+        </div>
+
+        <div id="createAccount">
+            <h2><span>New to Amazon?</span></h2>
+            <button id="newAccount" name="newAcct">Create your Amazon account</button>
+        </div>
+
+
+
+    </div>
+
+    <hr id="footer">
+
+    <div class="extra">
+        <p class="links">
+            <a href="#" id="first">Conditions of Use</a>
+            <a href="#">Notice of Use</a>
+            <a href="#">Help</a>
+        </p>
+        <p class="links" id="special">
+            © 1996-2016, Amazon.com, Inc. or its affiliates
+        </p>
+    </div>
+
+
+</body>
+</html>
